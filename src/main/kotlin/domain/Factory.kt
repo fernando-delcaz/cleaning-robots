@@ -2,7 +2,7 @@ package domain
 
 import domain.exceptions.OutsideOfTheFactoryBoundariesException
 
-class Factory(private val rows: Int, columns: Int) {
+class Factory(private val rows: Int, private val columns: Int) {
 
     private val factoryFloor: Array<Array<Robot?>> = Array(columns) { Array(rows) { null } }
 
@@ -15,6 +15,9 @@ class Factory(private val rows: Int, columns: Int) {
     }
 
     fun whatsIn(position: Position): Robot {
-        return Robot(position, Heading.NORTH);
+        if (position.x < 0 || position.x > rows || position.y < 0|| position.x > columns) {
+            factoryFloor[position.x][position.y]
+        }
+        throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
     }
 }
