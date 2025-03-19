@@ -14,10 +14,12 @@ class Factory(private val rows: Int, private val columns: Int) {
         }
     }
 
-    fun whatsIn(position: Position): Robot {
-        if (position.x < 0 || position.x > rows || position.y < 0|| position.x > columns) {
-            factoryFloor[position.x][position.y]
+    fun whatsIn(position: Position): Robot? {
+        if (isOutOfTheFactoryBoundaries(position)) {
+            throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
         }
-        throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
+        return factoryFloor[position.x][position.y]
     }
+
+    private fun isOutOfTheFactoryBoundaries(position: Position) = position.x < 0 || position.x > rows || position.y < 0 || position.y > columns
 }
