@@ -15,6 +15,8 @@ class RobotShould {
     @CsvSource(
         "5, 6",
         "6, 5",
+        "-1, 5",
+        "5, -1",
     )
     fun raiseAnExceptionIfPlacedOutsideTheGrid(positionX: Int, positionY: Int) {
 
@@ -30,11 +32,11 @@ class RobotShould {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
         val position = Position(0, 0)
-        var myRobot = Robot(position, Heading.NORTH)
+        val myRobot = Robot(position, Heading.NORTH)
 
         factory.place(myRobot);
 
-        var expectedRobot = factory.whatsIn(position);
+        val expectedRobot = factory.whatsIn(position);
         assertEquals(expectedRobot, myRobot, "Robot is not place where it should be")
     }
 }
