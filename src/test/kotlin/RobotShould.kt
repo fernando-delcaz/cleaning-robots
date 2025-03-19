@@ -28,7 +28,7 @@ class RobotShould {
     }
 
     @Test
-    fun beAbleToBePlacedOnOneTile() {
+    fun beAbleToBePlacedInAnEmptySlotOnTheFloor() {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
         val position = Position(0, 0)
