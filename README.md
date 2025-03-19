@@ -35,4 +35,9 @@ To model unexpected or wrong system behaviours my thought process is as followin
 
 For some domain entities such as the position or the heading I could use primitives instead of domain objects. The code would still work properly and maybe going for this abstractions could be seen as a premature abstraction. I decide to go this way because they better represent the domain of the context and I can get better control such as avoiding data clumps as e.g. using the coordinates components on isolatino 
 
+4.- Modelling the factory floor using arrays vs lists
+
+I have taken the decision of using arrays as the floor size does not change and that way I don´t need to control some of the scenarios myself.
+
+Using lists, in contrast, would be a bit less efficient and I would need to handle out of boundaries assignments myself. This way I may also lose some powerful, out of the box operations, which is a tradeoff that I accept for this exercise
 
