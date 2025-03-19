@@ -17,6 +17,10 @@ var mockKversion = "1.12.3"
 dependencies {
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:$mockKversion")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.0")
 }
 
 tasks.test {
