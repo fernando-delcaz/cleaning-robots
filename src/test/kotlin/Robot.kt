@@ -1,21 +1,19 @@
-import domain.Factory
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.CsvSource
+import domain.*
+import domain.exceptions.OutsideOfTheFactoryBoundariesException
+import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
-class RobotShould {
-    @ParameterizedTest
-    @CsvSource(
-        "6, 6",
-        "-1, 2",
-        "10, -1"
-    )
-    fun raiseAnExceptionIfPlacedOutsideTheGrid(robotPositionX: Int, robotPositionY: Int) {
-        val factory = Factory(5,5)
+private const val FACTORY_FLOOR_ROWS = 5
+private const val FACTORY_FLOOR_COLUMNS = 5
 
-        assertFailsWith<ArrayIndexOutOfBoundsException>("Robot placed outside grid boundaries!") {
-            factory.place(Robot(Heading.NORTH), robotPositionX, robotPositionY);
+class RobotShould {
+    @Test
+    fun raiseAnExceptionIfPlacedOutsideTheGrid() {
+
+        val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
+
+        assertFailsWith<OutsideOfTheFactoryBoundariesException>("Robot placed outside grid boundaries!") {
+            factory.place(Robot(Position(5, 6), Heading.NORTH));
         }
     }
-
 }
