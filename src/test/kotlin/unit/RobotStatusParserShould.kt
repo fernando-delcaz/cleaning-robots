@@ -27,10 +27,24 @@ class RobotStatusParserShould {
         assertFailsWith<InvalidStatusException> { robotStatusParser.parse(initialStatus)}
     }
 
+    @Test
+    fun raiseAnExceptionOnInvalidCoordinateX() {
+        var initialStatus = "A 2 N";
+        var robotStatusParser = RobotStatusParser();
+
+        assertFailsWith<InvalidStatusException> { robotStatusParser.parse(initialStatus)}
+    }
+
     class RobotStatusParser {
         fun parse(initialStatus: String): Status {
             val statusParts = initialStatus.split(" ");
             if (statusParts.size != 3) {
+                throw InvalidStatusException("Invalid status format")
+            }
+
+            val x = statusParts[0].toIntOrNull()
+
+            if(x == null){
                 throw InvalidStatusException("Invalid status format")
             }
 
