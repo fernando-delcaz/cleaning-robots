@@ -9,7 +9,7 @@ import kotlin.test.Test
 class RobotInstructionParserShould {
 
     @Test
-    fun raiseAnExceptionOnInvalidInstruction() {
+    fun parseOneValidInstruction() {
         val instructions = "L";
         val robotInstructionParser = RobotInstructionParser();
 
