@@ -37,7 +37,7 @@ class FactoryShould {
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
 
         assertFailsWith<OutsideOfTheFactoryBoundariesException>("Robot placed outside grid boundaries!") {
-            factory.place(Robot(Status(Position(positionX, positionY), Heading.NORTH)));
+            factory.place(Robot(Status(Position(positionX, positionY), Heading.NORTH), factory));
         }
     }
 
@@ -46,7 +46,7 @@ class FactoryShould {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
         val position = Position(0, 0)
-        val myRobot = Robot(Status(position, Heading.NORTH))
+        val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
         factory.place(myRobot);
 
