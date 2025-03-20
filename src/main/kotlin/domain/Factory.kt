@@ -16,9 +16,8 @@ class Factory(private val rows: Int, private val columns: Int) {
 
         try {
             factoryFloor.clearTile(robot)
-
             robot.status = desiredStatus
-            updateTileContent(robot)
+            factoryFloor.updateTileContent(robot)
 
             return robot.status
         } catch (exception: OutsideOfTheFactoryBoundariesException) {
@@ -35,20 +34,10 @@ class Factory(private val rows: Int, private val columns: Int) {
 
     private fun rollBack(robot: Robot, initialRobotStatus: Status): Status {
         robot.status = initialRobotStatus
-        updateTileContent(robot);
+        factoryFloor.updateTileContent(robot);
         return initialRobotStatus
     }
 
-    private fun updateTileContent(robot: Robot) {
-        try {
-            if (factoryFloor.isTileOccupied(robot.status.position)) {
-                throw TileAlreadyOccupiedException("A robot cannot land over another!")
-            }
-            factoryFloor.occupyTile(robot)
-        } catch (exception: ArrayIndexOutOfBoundsException) {
-            throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
-        }
-    }
 }
 
 

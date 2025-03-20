@@ -14,6 +14,7 @@ class FactoryFloor(private val rows: Int, private val columns: Int) {
         }
         occupiedPositions.remove(robot.status.position)
     }
+
     fun occupyTile(robot: Robot) {
         occupiedPositions[robot.status.position] = robot
     }
@@ -25,7 +26,20 @@ class FactoryFloor(private val rows: Int, private val columns: Int) {
 
         return occupiedPositions.containsKey(position)
     }
+
     private fun isOutOfBoundaries(position: Position): Boolean {
         return position.x < 0 || position.x >= columns || position.y < 0 || position.y >= rows
+    }
+
+    fun updateTileContent(robot: Robot) {
+        try {
+            if (isTileOccupied(robot.status.position)) {
+                throw TileAlreadyOccupiedException("A robot cannot land over another!")
+            }
+            occupyTile(robot)
+        } catch (exception: ArrayIndexOutOfBoundsException) {
+            throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
+        }
+
     }
 }
