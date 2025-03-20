@@ -31,8 +31,8 @@ class Factory(private val rows: Int, private val columns: Int) {
             place(updatedRobot)
             emptyTile(robot.status)
             return updatedRobot.status
-        } catch (exception: ArrayIndexOutOfBoundsException) {
-            print("Robot cannot be moved!")
+        } catch (exception: OutsideOfTheFactoryBoundariesException) {
+            print("Robot cannot go out of the factory grid boundaries!")
             return robot.status
         }
     }
