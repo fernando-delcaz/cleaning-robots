@@ -42,7 +42,7 @@ class FactoryShould {
     }
 
     @Test
-    fun beAbleToPlaceOneRobotInAnEmptySlotInTheFloor() {
+    fun beAbleToPlaceOneRobotOntheFloorOrigin() {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
         val position = Position(0, 0)
@@ -53,6 +53,20 @@ class FactoryShould {
         val expectedRobot = factory.whatsIn(position);
         assertEquals(expectedRobot, myRobot, "Robot is not place where it should be")
     }
+
+    @Test
+    fun beAbleToPlaceOneRobotInAnEmptySlotInTheFloor() {
+
+        val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
+        val position = Position(0, 1)
+        val myRobot = Robot(Status(position, Heading.NORTH), factory)
+
+        factory.place(myRobot);
+
+        val expectedRobot = factory.whatsIn(position);
+        assertEquals(expectedRobot, myRobot, "Robot is not place where it should be")
+    }
+
 
     @Test
     fun updateOneRobotPosition() {
