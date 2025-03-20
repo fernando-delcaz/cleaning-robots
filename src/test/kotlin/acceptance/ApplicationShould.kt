@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 class ApplicationShould {
 
     @Test
-    fun handleOneTheInstructionToCleanOneFactory() {
+    fun handleOneRobotToCleanOneFactory() {
 
         val factorySizeDto = FactorySizeDto(5, 5);
         val robotInitialStatus = "1 2 N";
