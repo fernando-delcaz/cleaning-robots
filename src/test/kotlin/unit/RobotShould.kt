@@ -39,7 +39,7 @@ class RobotShould {
         val expectedStatus = Status(Position(0, 0), expectedHeading)
 
         robot = Robot(Status(Position(0, 0), initialHeading), factory)
-        robot.updateStatus(instruction)
+        robot.execute(instruction)
 
         assertEquals(expectedStatus, robot.status)
     }
@@ -56,7 +56,7 @@ class RobotShould {
         val expectedStatus = Status(Position(expectedPositionX, expectedPositionY), initialHeading)
 
         val instruction = ForwardMovement();
-        robot.updateStatus(instruction)
+        robot.execute(instruction)
 
         assertEquals(robot.status, expectedStatus)
     }
@@ -73,8 +73,8 @@ class RobotShould {
         val expectedStatus = Status(Position(expectedPositionX, expectedPositionY), initialHeading)
 
         val instruction = ForwardMovement();
-        robot.updateStatus(instruction)
-        robot.updateStatus(instruction)
+        robot.execute(instruction)
+        robot.execute(instruction)
 
         assertEquals(robot.status, expectedStatus)
     }

@@ -74,7 +74,7 @@ class FactoryShould {
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
         val instruction = ForwardMovement();
-        myRobot.updateStatus(instruction)
+        myRobot.execute(instruction)
 
         val expectedEmptySpace = factory.whatsIn(position);
         assertNull(expectedEmptySpace, "Robot it´s duplicated or did not move");
@@ -90,7 +90,7 @@ class FactoryShould {
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
         val instruction = ForwardMovement();
-        myRobot.updateStatus(instruction)
+        myRobot.execute(instruction)
 
         assertEquals(factory.whatsIn(position), myRobot, "Robot is not placed where it should be")
     }

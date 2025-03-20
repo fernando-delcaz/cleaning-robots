@@ -62,3 +62,7 @@ I want to split the responsibilities between the factory floor (just to handle i
 
 8.- Continue with the operation when hitting a wall or another robot
 I will just consider that a robot hits a wall or another robot during a movement but this does not stop it to try to continue as it can potentially clean a bigger area than if I make it halt or throw an exception and stop the whole program
+
+9.- Use hexagonal architecture + onion
+I have decided to use hexagonal architecture mainly because it´s approach to ports and adapters will make it easy to add different entry points to the application in the case I want to convert it to an api, use files as the input... etc.
+I also want to combine it with onion as the layered approach provides better decoupling and easier testability amongst other benefits
