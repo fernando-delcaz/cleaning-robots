@@ -44,6 +44,11 @@ class Factory(private val rows: Int, private val columns: Int) {
             robot.status = initialRobotStatus
             updateTileContent(robot);
             return initialRobotStatus
+        } catch (exception: TileAlreadyOccupiedException) {
+            print("Tile was already occupied! Skipping movement")
+            robot.status = initialRobotStatus
+            updateTileContent(robot);
+            return initialRobotStatus
         }
     }
 
