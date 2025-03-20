@@ -18,8 +18,16 @@ class FactoryInputParserShould {
     }
 
     @Test
-    fun throwExceptionForMissingColumns() {
+    fun raiseExceptionForMissingColumns() {
         val input = "5"
+        assertFailsWith<InvalidInputException> {
+            factoryInputParser.parse(input)
+        }
+    }
+
+    @Test
+    fun raiseExceptionForInvalidInputWithNonIntegerValues() {
+        val input = "5 a"
         assertFailsWith<InvalidInputException> {
             factoryInputParser.parse(input)
         }
@@ -32,8 +40,12 @@ class FactoryInputParser {
         if (parts.size != 2) {
             throw InvalidInputException("Invalid input, should contain two values: rows and columns")
         }
-        val rows = parts[0].toInt()
-        val columns = parts[1].toInt()
+        val rows = parts[0].toIntOrNull()
+        val columns = parts[1].toIntOrNull()
+        if (rows == null || columns == null) {
+            throw InvalidInputException("Values must be numbers")
+        }
+
         return FactorySizeDto(rows, columns)
 
     }
