@@ -5,6 +5,7 @@ import domain.exceptions.InvalidStatusException
 import domain.Position
 import domain.Status
 import infrastructure.RobotStatusParser
+import infrastructure.StatusDto
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -16,7 +17,7 @@ class RobotStatusParserShould {
         var initialStatus = "1 2 N";
         var robotStatusParser = RobotStatusParser();
 
-        val spectedStatus = Status(Position(1, 2), Heading.NORTH);
+        val spectedStatus = StatusDto(1, 2, 'N');
         assertEquals(spectedStatus, robotStatusParser.parse(initialStatus))
     }
 

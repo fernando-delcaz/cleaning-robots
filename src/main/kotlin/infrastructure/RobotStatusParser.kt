@@ -7,7 +7,7 @@ import domain.Status
 import java.util.*
 
 class RobotStatusParser {
-    fun parse(initialStatus: String): Status {
+    fun parse(initialStatus: String): StatusDto {
         val statusParts = initialStatus.split(" ");
         if (statusParts.size != 3) {
             throw InvalidStatusException("Invalid status format")
@@ -26,6 +26,6 @@ class RobotStatusParser {
             throw InvalidStatusException("Invalid heading")
         }
 
-        return Status(Position(1, 2), Heading.NORTH);
+        return StatusDto(x,y, statusParts[2].first().uppercaseChar());
     }
 }

@@ -5,6 +5,8 @@ import domain.ForwardMovement
 import domain.Instruction
 import domain.Rotation
 import domain.exceptions.InvalidStatusException
+import infrastructure.InstructionDto
+import infrastructure.RobotInstructionParser
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
@@ -16,7 +18,7 @@ class RobotInstructionParserShould {
         val instructions = "L";
         val robotInstructionParser = RobotInstructionParser();
 
-        val expectedResult = listOf(Rotation(Direction.LEFT));
+        val expectedResult = listOf(InstructionDto('L'));
         assertEquals(expectedResult, robotInstructionParser.parse(instructions))
     }
 
@@ -43,27 +45,15 @@ class RobotInstructionParserShould {
         val robotInstructionParser = RobotInstructionParser();
 
         val expectedResult = listOf(
-            Rotation(Direction.RIGHT),
-            Rotation(Direction.LEFT),
-            ForwardMovement(),
-            Rotation(Direction.LEFT),
-            ForwardMovement(),
-            Rotation(Direction.RIGHT),
+            InstructionDto('R'),
+            InstructionDto('L'),
+            InstructionDto('M'),
+            InstructionDto('L'),
+            InstructionDto('M'),
+            InstructionDto('R'),
         )
         assertEquals(expectedResult, robotInstructionParser.parse(instructions))
     }
 }
 
-class RobotInstructionParser {
-    fun parse(instructions: String): List<Instruction> {
-        return instructions.map {
-            when (it) {
-                'L' -> Rotation(Direction.LEFT)
-                'R' -> Rotation(Direction.RIGHT)
-                'M' -> ForwardMovement()
-                else -> throw InvalidStatusException("Invalid instruction")
-            }
-        }
-    }
 
-}

@@ -1,24 +1,31 @@
 package application
 
 import domain.*
-import infrastructure.FactorySizeDto
-import infrastructure.RobotMovementDto
+import domain.exceptions.InvalidInputException
+import infrastructure.*
 
 class FactoryCleaningService(
-    private val factorySize: FactorySizeDto,
-    private val robotInitialStatusParser: (String) -> Status,
-    private val robotInstructionParser: (String) -> List<Instruction>
+    private val applicationInputDto: ApplicationInputDto
 ) {
     fun makeCleanUp(robotMovementDtos: List<RobotMovementDto>): List<String> {
-        val factory = Factory(factorySize.rows, factorySize.columns);
+        val factory = Factory(applicationInputDto.factorySizeDto.rows, applicationInputDto.factorySizeDto.columns);
 
-        for(robotMovementDto in robotMovementDtos){
-            val initialRobotStatus = robotInitialStatusParser(robotMovementDto.robotInitialStatus)
-            val robot = Robot(initialRobotStatus, factory);
+        for(robotDto in applicationInputDto.robots){
 
-            val instructions = robotInstructionParser(robotMovementDto.robotInstructions)
+            val position = Position(robotDto.first.x, robotDto.first.y)
+            val heading = Heading.fromChar(robotDto.first.heading)
 
-            for(instruction in instructions){
+            val status = Status(position, heading);
+            val robot = Robot(status, factory);
+
+            for(instructionDto in robotDto.second){
+                val instruction: Instruction = when (instructionDto.instruction) {
+                    'L' -> Rotation(Direction.LEFT)
+                    'R' -> Rotation(Direction.RIGHT)
+                    'M' -> ForwardMovement()
+                    else -> throw InvalidInputException("Invalid instruction: $instructionDto.instruction")
+                }
+
                 robot.execute(instruction);
             }
         }

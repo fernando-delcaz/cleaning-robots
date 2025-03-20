@@ -2,11 +2,8 @@ package integration
 
 import application.FactoryCleaningService
 import domain.*
-import infrastructure.FactorySizeDto
-import infrastructure.RobotMovementDto
-import infrastructure.RobotStatusParser
+import infrastructure.*
 import org.junit.jupiter.api.Test
-import unit.RobotInstructionParser
 import kotlin.test.assertEquals
 
 class ApplicationShould {
@@ -20,7 +17,8 @@ class ApplicationShould {
         val robotInitialStatusParser = RobotStatusParser();
         val robotInstructionParser = RobotInstructionParser();
 
-        var factoryCleaningService = FactoryCleaningService(factorySizeDto, robotInitialStatusParser::parse, robotInstructionParser::parse);
+        val applicationInputDto = ApplicationInputDto(factorySizeDto, listOf(Pair(robotInitialStatusParser.parse(robotInitialStatus), listOf())));
+        var factoryCleaningService = FactoryCleaningService(applicationInputDto);
 
         val robotInstructions = "LMLMLMLMM";
         val robotInstructionDto = RobotMovementDto(robotInitialStatus, robotInstructions);
@@ -28,6 +26,7 @@ class ApplicationShould {
 
         val expectedRobotsFinalStatus = "1 3 N";
         val robotsFinalStatus = factoryCleaningService.makeCleanUp(robotInstructionsMovementDtos);
+
         assertEquals(expectedRobotsFinalStatus, robotsFinalStatus.get(0));
     }
 }
