@@ -5,11 +5,13 @@ import domain.exceptions.InvalidInputException
 import infrastructure.*
 
 class FactoryCleaningService(
-    private val applicationInputDto: ApplicationInputDto
+    private val applicationInputDto: ApplicationInputDto,
 ) {
-    fun makeCleanUp(robotMovementDtos: List<RobotMovementDto>): List<String> {
-        val factory = Factory(applicationInputDto.factorySizeDto.rows, applicationInputDto.factorySizeDto.columns);
 
+    private var factory: Factory = Factory(applicationInputDto.factorySizeDto.rows, applicationInputDto.factorySizeDto.columns)
+    fun makeCleanUp(): List<String> {
+
+        val output = ArrayList<String>();
         for(robotDto in applicationInputDto.robots){
 
             val position = Position(robotDto.first.x, robotDto.first.y)
@@ -28,8 +30,10 @@ class FactoryCleaningService(
 
                 robot.execute(instruction);
             }
+            output.add(robot.status.toString())
+
         }
 
-        return listOf("1 3 N");
+        return output;
     }
 }

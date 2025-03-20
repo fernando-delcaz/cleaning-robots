@@ -10,7 +10,7 @@ class ApplicationInputParser {
     val robotInstructionParser = RobotInstructionParser();
 
     fun parse(input: String): ApplicationInputDto {
-        val inputLines = input.lines();
+        val inputLines = input.trim().lines();
         val factorySizeDto = factoryInputParser.parse(inputLines[0]);
 
         val robots = mutableListOf<Pair<StatusDto, List<InstructionDto>>>()

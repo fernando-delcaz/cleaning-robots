@@ -1,9 +1,6 @@
 package unit
 
-import domain.Direction
-import domain.ForwardMovement
 import domain.Instruction
-import domain.Rotation
 import domain.exceptions.InvalidStatusException
 import infrastructure.InstructionDto
 import infrastructure.RobotInstructionParser
