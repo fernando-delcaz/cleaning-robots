@@ -1,6 +1,6 @@
 package domain
 
-class Rotation(val rotateTo: Direction) : Instruction() {
+data class Rotation(val rotateTo: Direction) : Instruction() {
     val rotateLeftMap: Map<Heading, Heading> = mapOf(
         Heading.NORTH to Heading.WEST,
         Heading.WEST to Heading.SOUTH,
