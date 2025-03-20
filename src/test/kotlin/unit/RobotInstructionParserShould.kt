@@ -51,6 +51,22 @@ class RobotInstructionParserShould {
         )
         assertEquals(expectedResult, robotInstructionParser.parse(instructions))
     }
+
+    @Test
+    fun processAnotherMixOfRotationsAndMovements() {
+        val instructions = "RLMLMR";
+        val robotInstructionParser = RobotInstructionParser();
+
+        val expectedResult = listOf(
+            InstructionDto('R'),
+            InstructionDto('L'),
+            InstructionDto('M'),
+            InstructionDto('L'),
+            InstructionDto('M'),
+            InstructionDto('R'),
+        )
+        assertEquals(expectedResult, robotInstructionParser.parse(instructions))
+    }
 }
 
 
