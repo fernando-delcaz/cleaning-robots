@@ -56,3 +56,9 @@ Position - Coordinates over the floor factory which. A robot may be in a positio
 Heading - Is where the robot is pointing to. It can be North, West, South or East
 Status - Is the report representing where a robot is within the factory and where is it pointing to
 Instructions - Is the set of possible movements that the robot need to follow. The can be rotation (L, R) or front movements
+
+7.- Implementing event sourcing
+I want to split the responsibilities between the factory floor (just to handle it a robot is moving within boundaries) and the robots (to handle collisions). I will use event sourcing for this creating a domain event named "RobotMovedEvent"
+
+8.- Continue with the operation when hitting a wall or another robot
+I will just consider that a robot hits a wall or another robot during a movement but this does not stop it to try to continue as it can potentially clean a bigger area than if I make it halt or throw an exception and stop the whole program
