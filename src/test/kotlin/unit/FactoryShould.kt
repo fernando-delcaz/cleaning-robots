@@ -2,6 +2,7 @@ package unit
 
 import domain.*
 import domain.exceptions.OutsideOfTheFactoryBoundariesException
+import domain.exceptions.TileAlreadyOccupiedException
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import kotlin.test.Test
@@ -96,5 +97,15 @@ class FactoryShould {
         myRobot.updateStatus(instruction)
 
         assertEquals(factory.whatsIn(position), myRobot, "Robot is not placed where it should be")
+    }
+
+    @Test
+    fun notAllowOneRobotToLandOverAnother() {
+        val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
+        val position = Position(0, 4)
+
+        Robot(Status(position, Heading.NORTH), factory)
+
+        assertFailsWith<TileAlreadyOccupiedException> { Robot(Status(position, Heading.NORTH), factory) }
     }
 }

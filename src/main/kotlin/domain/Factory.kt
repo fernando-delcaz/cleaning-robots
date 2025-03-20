@@ -1,6 +1,7 @@
 package domain
 
 import domain.exceptions.OutsideOfTheFactoryBoundariesException
+import domain.exceptions.TileAlreadyOccupiedException
 
 class Factory(private val rows: Int, private val columns: Int) {
 
@@ -8,6 +9,10 @@ class Factory(private val rows: Int, private val columns: Int) {
 
     internal fun place(robot: Robot) {
         try {
+            if(whatsIn(robot.status.position) != null){
+                throw TileAlreadyOccupiedException("A robot cannot land over another!")
+            }
+
             factoryFloor[robot.status.position.x][robot.status.position.y] = robot
         } catch (exception: ArrayIndexOutOfBoundsException) {
             throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
