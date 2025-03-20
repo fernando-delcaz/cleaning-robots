@@ -4,6 +4,7 @@ import domain.Heading
 import domain.InvalidStatusException
 import domain.Position
 import domain.Status
+import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -43,6 +44,15 @@ class RobotStatusParserShould {
         assertFailsWith<InvalidStatusException> { robotStatusParser.parse(initialStatus)}
     }
 
+    @Test
+    fun raiseAnExceptionOnInvalidHeading() {
+        var initialStatus = "1 1 L";
+        var robotStatusParser = RobotStatusParser();
+
+        assertFailsWith<InvalidStatusException> { robotStatusParser.parse(initialStatus)}
+    }
+
+
     class RobotStatusParser {
         fun parse(initialStatus: String): Status {
             val statusParts = initialStatus.split(" ");
@@ -55,6 +65,12 @@ class RobotStatusParserShould {
 
             if(x == null || y == null){
                 throw InvalidStatusException("Invalid coordinates")
+            }
+
+            val heading = Heading.values().find { it.char == statusParts[2].uppercase(Locale.getDefault())[0] }
+
+            if (heading == null) {
+                throw InvalidStatusException("Invalid heading")
             }
 
             return Status(Position(1, 2), Heading.NORTH);
