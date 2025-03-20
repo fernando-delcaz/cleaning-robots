@@ -43,6 +43,16 @@ class RobotShould {
 
         assertEquals(robot.status, expectedStatus)
     }
+
+    @Test
+    fun moveForwardOneStep(){
+        val instruction = ForwardMovement();
+        val expectedStatus = Status(Position(0, 1), Heading.NORTH)
+
+        robot.updateStatus(instruction)
+
+        assertEquals(robot.status, expectedStatus)
+    }
 }
 
 
