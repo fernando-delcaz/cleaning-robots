@@ -16,7 +16,7 @@ class RobotShould {
      }
 
     @Test
-    fun executeOneRotationInstruction(){
+    fun rotateRight(){
         val factory = Factory(5, 5);
         val robot = Robot(Status(Position(0,0), Heading.NORTH), factory);
         val expectedStatus = Status(Position(0,0), Heading.EAST);
