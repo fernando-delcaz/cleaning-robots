@@ -7,20 +7,8 @@ class Factory(private val rows: Int, private val columns: Int) {
 
     private val factoryFloor: Array<Array<Robot?>> = Array(columns) { Array(rows) { null } }
 
-    internal fun place(robot: Robot) {
-        try {
-            if(whatsIn(robot.status.position) != null){
-                throw TileAlreadyOccupiedException("A robot cannot land over another!")
-            }
-
-            factoryFloor[robot.status.position.x][robot.status.position.y] = robot
-        } catch (exception: ArrayIndexOutOfBoundsException) {
-            throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
-        }
-    }
-
     private fun emptyTile(status: Status) {
-        factoryFloor[status.position.y][status.position.x] = null
+        factoryFloor[status.position.x][status.position.y] = null
     }
 
     fun whatsIn(position: Position): Robot? {
@@ -31,14 +19,43 @@ class Factory(private val rows: Int, private val columns: Int) {
     }
 
     internal fun updateRobotStatus(robot: Robot, desiredStatus: Status): Status {
+        val initialRobotStatus = robot.status;
+        val currentTileContent = whatsIn(robot.status.position);
+
+        if (currentTileContent != null && currentTileContent !== robot) {
+            throw TileAlreadyOccupiedException("A robot cannot land over another!")
+        }
+
+        return updateFactoryFloorStatus(robot, initialRobotStatus, desiredStatus)
+    }
+
+    private fun updateFactoryFloorStatus(
+        robot: Robot,
+        initialRobotStatus: Status,
+        desiredStatus: Status
+    ): Status {
         try {
-            val updatedRobot = robot.copy(status = desiredStatus)
-            place(updatedRobot)
             emptyTile(robot.status)
-            return updatedRobot.status
+            robot.status = desiredStatus
+            updateTileContent(robot)
+            return robot.status
         } catch (exception: OutsideOfTheFactoryBoundariesException) {
             print("Robot cannot go out of the factory grid boundaries!")
-            return robot.status
+            robot.status = initialRobotStatus
+            updateTileContent(robot);
+            return initialRobotStatus
+        }
+    }
+
+    private fun updateTileContent(robot: Robot) {
+        try {
+            if(whatsIn(robot.status.position) != null){
+                throw TileAlreadyOccupiedException("A robot cannot land over another!")
+            }
+
+            factoryFloor[robot.status.position.x][robot.status.position.y] = robot
+        } catch (exception: ArrayIndexOutOfBoundsException) {
+            throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
         }
     }
 
