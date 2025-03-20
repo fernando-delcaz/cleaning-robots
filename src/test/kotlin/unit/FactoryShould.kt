@@ -5,10 +5,7 @@ import domain.exceptions.OutsideOfTheFactoryBoundariesException
 import domain.exceptions.TileAlreadyOccupiedException
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNull
+import kotlin.test.*
 
 class FactoryShould {
 
@@ -17,13 +14,7 @@ class FactoryShould {
     @Test
     fun raiseAnExceptionIfAskingOutsideTheGrid(){
          val factory = Factory(3, 3);
-        assertFailsWith<OutsideOfTheFactoryBoundariesException> { factory.whatsIn(Position(3, 4)) }
-    }
-
-    @Test
-    fun returnNullIfAskingForAnEmptySlot(){
-        val factory = Factory(3, 3);
-        assertNull(factory.whatsIn(Position(0, 0)));
+        assertFailsWith<OutsideOfTheFactoryBoundariesException> { factory.canIMoveTo(Position(3, 4)) }
     }
 
     @ParameterizedTest
@@ -43,14 +34,14 @@ class FactoryShould {
     }
 
     @Test
-    fun beAbleToPlaceOneRobotOntheFloorOrigin() {
+    fun beAbleToPlaceOneRobotOnTheFloorOrigin() {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
         val position = Position(0, 0)
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
-        val expectedRobot = factory.whatsIn(position);
-        assertEquals(expectedRobot, myRobot, "Robot is not place where it should be")
+        val result = factory.updateRobotStatus(myRobot, myRobot.status)
+        assertEquals(result, myRobot.status, "Robot is not place where it should be")
     }
 
     @Test
@@ -60,8 +51,8 @@ class FactoryShould {
         val position = Position(0, 1)
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
-        val expectedRobot = factory.whatsIn(position);
-        assertEquals(expectedRobot, myRobot, "Robot is not place where it should be")
+        val result = factory.updateRobotStatus(myRobot, myRobot.status)
+        assertEquals(result, myRobot.status, "Robot is not place where it should be")
     }
 
 
@@ -74,11 +65,10 @@ class FactoryShould {
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
         val instruction = ForwardMovement();
-        myRobot.execute(instruction)
+        myRobot.execute(instruction);
 
-        val expectedEmptySpace = factory.whatsIn(position);
-        assertNull(expectedEmptySpace, "Robot it´s duplicated or did not move");
-        assertEquals(factory.whatsIn(Position(0, 1)), myRobot, "Robot is not placed where it should be")
+        assertEquals(Status(Position(0, 1), Heading.NORTH), myRobot.status, "Robot is not place where it should be")
+        assertTrue { factory.canIMoveTo(position) }
     }
 
     @Test
@@ -92,7 +82,10 @@ class FactoryShould {
         val instruction = ForwardMovement();
         myRobot.execute(instruction)
 
-        assertEquals(factory.whatsIn(position), myRobot, "Robot is not placed where it should be")
+        assertFalse { factory.canIMoveTo(position) }
+
+        val result = factory.updateRobotStatus(myRobot, myRobot.status)
+        assertEquals(result, myRobot.status, "Robot is not place where it should be")
     }
 
     @Test

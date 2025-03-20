@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class RobotShould {
 
@@ -19,7 +20,8 @@ class RobotShould {
     @Test
     fun beAssignedToOneFactory(){
         robot = Robot(Status(Position(0, 0), Heading.NORTH), factory)
-        assertEquals(robot, factory.whatsIn(robot.status.position));
+//        assertEquals(robot, factory.whatsIn(robot.status.position));
+        assertFalse { factory.canIMoveTo(robot.status.position) }
         assertEquals(robot.factory, factory);
     }
 
