@@ -1,3 +1,5 @@
+package unit
+
 import domain.Factory
 import domain.Heading
 import domain.Position
@@ -10,21 +12,20 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
 
-private const val FACTORY_FLOOR_ROWS = 5
-private const val FACTORY_FLOOR_COLUMNS = 5
-
 class FactoryShould {
 
+    private val FACTORY_FLOOR_ROWS = 5
+    private val FACTORY_FLOOR_COLUMNS = 5
     @Test
     fun raiseAnExceptionIfAskingOutsideTheGrid(){
-         val factory = Factory(3,3);
-         assertFailsWith<OutsideOfTheFactoryBoundariesException> { factory.whatsIn(Position(3, 4)) }
+         val factory = Factory(3, 3);
+        assertFailsWith<OutsideOfTheFactoryBoundariesException> { factory.whatsIn(Position(3, 4)) }
     }
 
     @Test
     fun returnNullIfAskingForAnEmptySlot(){
-        val factory = Factory(3,3);
-        assertNull(factory.whatsIn(Position(0,0)));
+        val factory = Factory(3, 3);
+        assertNull(factory.whatsIn(Position(0, 0)));
     }
 
     @ParameterizedTest
