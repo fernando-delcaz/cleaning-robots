@@ -15,7 +15,7 @@ class ApplicationShould {
         val factorySizeDto = FactorySizeDto(5, 5);
         val robotInitialStatus = "1 2 N";
 
-        val robotInitialStatusParser: (String) -> Status = { _ -> Status(Position(1, 2), Heading.NORTH)}
+        val robotInitialStatusParserStub: (String) -> Status = { _ -> Status(Position(1, 2), Heading.NORTH)}
         val robotInstructionParserStub: (String) -> List<Instruction> = {
             listOf(
                 Rotation(Direction.LEFT),
@@ -33,7 +33,7 @@ class ApplicationShould {
             )
         }
 
-        var factoryCleaningService = FactoryCleaningService(factorySizeDto, robotInitialStatusParser, robotInstructionParserStub);
+        var factoryCleaningService = FactoryCleaningService(factorySizeDto, robotInitialStatusParserStub, robotInstructionParserStub);
 
         val robotInstructions = "LMLMLMLMM";
         val robotInstructionDto = RobotMovementDto(robotInitialStatus, robotInstructions);
