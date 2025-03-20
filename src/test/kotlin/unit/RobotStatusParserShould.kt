@@ -1,11 +1,10 @@
 package unit
 
 import domain.Heading
-import domain.InvalidStatusException
+import domain.exceptions.InvalidStatusException
 import domain.Position
 import domain.Status
 import infrastructure.RobotStatusParser
-import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

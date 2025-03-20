@@ -1,7 +1,7 @@
 package infrastructure
 
 import domain.Heading
-import domain.InvalidStatusException
+import domain.exceptions.InvalidStatusException
 import domain.Position
 import domain.Status
 import java.util.*
