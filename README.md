@@ -41,3 +41,18 @@ I have taken the decision of using arrays as the floor size does not change and 
 
 Using lists, in contrast, would be a bit less efficient and I would need to handle out of boundaries assignments myself. This way I may also lose some powerful, out of the box operations, which is a tradeoff that I accept for this exercise
 
+5.- Using enums for the robot instructions to avoid propagating wrong inputs deep in the code
+
+The application contract is using strings. This means that a variety of inputs should be controlled in order to avoid errors. I could make the robot handle this errors but I think it´s better to narrow this behaviour and postpone the decision of choosing a better system component to do this
+
+6.- Ubiquitous language
+
+In order to ensure that anybody involved the project, including potential expert domains, understand the same concept for the same word I think it´s important to clarify some core concepts of our domain
+
+Robot - Any of the cleaner robots
+Factory - Is the center we want to clean
+Factory Floor - It´s the area to clean, represented by a matrix
+Position - Coordinates over the floor factory which. A robot may be in a position or it can be emtpy
+Heading - Is where the robot is pointing to. It can be North, West, South or East
+Status - Is the report representing where a robot is within the factory and where is it pointing to
+Instructions - Is the set of possible movements that the robot need to follow. The can be rotation (L, R) or front movements

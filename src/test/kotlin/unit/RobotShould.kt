@@ -15,5 +15,17 @@ class RobotShould {
          assertEquals(robot.factory, factory);
      }
 
+    @Test
+    fun executeOneRotationInstruction(){
+        val factory = Factory(5, 5);
+        val robot = Robot(Status(Position(0,0), Heading.NORTH), factory);
+        val expectedStatus = Status(Position(0,0), Heading.EAST);
 
+        val instruction = Rotation(Direction.RIGHT);
+        robot.updateStatus(instruction)
+
+        assertEquals(robot.status, expectedStatus);
+    }
 }
+
+
