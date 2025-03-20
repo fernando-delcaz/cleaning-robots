@@ -16,7 +16,7 @@ class Factory(private val rows: Int, private val columns: Int) {
 
     fun whatsIn(position: Position): Robot? {
         if (isOutOfTheFactoryBoundaries(position)) {
-            throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
+            throw OutsideOfTheFactoryBoundariesException("You can´t query a position outside the factory grid boundaries")
         }
         return factoryFloor[position.x][position.y]
     }
