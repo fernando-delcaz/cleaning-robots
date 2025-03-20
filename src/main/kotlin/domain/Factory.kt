@@ -3,7 +3,7 @@ package domain
 import domain.exceptions.OutsideOfTheFactoryBoundariesException
 import domain.exceptions.TileAlreadyOccupiedException
 
-class Factory(private val rows: Int, private val columns: Int) {
+class Factory(rows: Int, columns: Int) {
 
     var factoryFloor = FactoryFloor(rows, columns);
 
