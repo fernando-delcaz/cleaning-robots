@@ -8,7 +8,7 @@ class Factory(private val rows: Int, private val columns: Int) {
 
     fun place(robot: Robot) {
         try {
-            factoryFloor[robot.position.y][robot.position.x] = robot;
+            factoryFloor[robot.status.position.y][robot.status.position.x] = robot;
         } catch (exception: ArrayIndexOutOfBoundsException) {
             throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
         }
