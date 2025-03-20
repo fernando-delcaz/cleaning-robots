@@ -14,14 +14,6 @@ class Factory(private val rows: Int, private val columns: Int) {
     internal fun updateRobotStatus(robot: Robot, desiredStatus: Status): Status {
         val initialRobotStatus = robot.status;
 
-        return updateFactoryFloorStatus(robot, initialRobotStatus, desiredStatus)
-    }
-
-    private fun updateFactoryFloorStatus(
-        robot: Robot,
-        initialRobotStatus: Status,
-        desiredStatus: Status
-    ): Status {
         try {
             factoryFloor.clearTile(robot)
             robot.status = desiredStatus
