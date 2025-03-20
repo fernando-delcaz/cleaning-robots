@@ -14,7 +14,7 @@ class Factory(private val rows: Int, private val columns: Int) {
         }
     }
 
-    internal fun emptyTile(status: Status) {
+    private fun emptyTile(status: Status) {
         try {
             factoryFloor[status.position.y][status.position.x] = null;
         } catch (exception: ArrayIndexOutOfBoundsException) {
