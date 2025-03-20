@@ -11,7 +11,7 @@ class Factory(private val rows: Int, private val columns: Int) {
         return !factoryFloor.isTileOccupied(position);
     }
 
-    internal fun updateRobotStatus(robot: Robot, desiredStatus: Status): Status {
+    internal fun moveRobot(robot: Robot, desiredStatus: Status): Status {
         val initialRobotStatus = robot.status;
 
         try {

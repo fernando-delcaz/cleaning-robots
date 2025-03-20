@@ -40,7 +40,7 @@ class FactoryShould {
         val position = Position(0, 0)
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
-        val result = factory.updateRobotStatus(myRobot, myRobot.status)
+        val result = factory.moveRobot(myRobot, myRobot.status)
         assertEquals(result, myRobot.status, "Robot is not place where it should be")
     }
 
@@ -51,7 +51,7 @@ class FactoryShould {
         val position = Position(0, 1)
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
-        val result = factory.updateRobotStatus(myRobot, myRobot.status)
+        val result = factory.moveRobot(myRobot, myRobot.status)
         assertEquals(result, myRobot.status, "Robot is not place where it should be")
     }
 
@@ -84,7 +84,7 @@ class FactoryShould {
 
         assertFalse { factory.canIMoveTo(position) }
 
-        val result = factory.updateRobotStatus(myRobot, myRobot.status)
+        val result = factory.moveRobot(myRobot, myRobot.status)
         assertEquals(result, myRobot.status, "Robot is not place where it should be")
     }
 
