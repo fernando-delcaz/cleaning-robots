@@ -14,11 +14,11 @@ class RobotShould {
     @BeforeEach
     fun setup() {
         factory = Factory(5, 5)
-        robot = Robot(Status(Position(0, 0), Heading.NORTH), factory)
     }
 
     @Test
     fun beAssignedToOneFactory(){
+        robot = Robot(Status(Position(0, 0), Heading.NORTH), factory)
         assertEquals(robot, factory.whatsIn(robot.status.position));
         assertEquals(robot.factory, factory);
     }
@@ -35,13 +35,13 @@ class RobotShould {
         "EAST, LEFT, NORTH",
     )
     fun rotateTest(initialHeading: Heading, rotationDirection: String, expectedHeading: Heading) {
-        robot = Robot(Status(Position(0, 0), initialHeading), factory)
         val instruction = Rotation(Direction.valueOf(rotationDirection))
         val expectedStatus = Status(Position(0, 0), expectedHeading)
 
+        robot = Robot(Status(Position(0, 0), initialHeading), factory)
         robot.updateStatus(instruction)
 
-        assertEquals(robot.status, expectedStatus)
+        assertEquals(expectedStatus, robot.status)
     }
 
     @ParameterizedTest
