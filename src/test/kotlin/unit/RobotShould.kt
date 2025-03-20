@@ -46,13 +46,13 @@ class RobotShould {
 
     @ParameterizedTest
     @CsvSource(
-        "NORTH, 1, 2",
-        "EAST, 2, 1",
-        "SOUTH, 1, 0",
-        "WEST, 0, 1",
+        "NORTH, 2, 3",
+        "EAST, 3, 2",
+        "SOUTH, 2, 1",
+        "WEST, 1, 2",
     )
     fun moveUpForwardOneStep(initialHeading: Heading, expectedPositionX: Int, expectedPositionY: Int){
-        robot = Robot(Status(Position(1, 1), initialHeading), factory)
+        robot = Robot(Status(Position(2, 2), initialHeading), factory)
         val expectedStatus = Status(Position(expectedPositionX, expectedPositionY), initialHeading)
 
         val instruction = ForwardMovement();
@@ -61,11 +61,18 @@ class RobotShould {
         assertEquals(robot.status, expectedStatus)
     }
 
-    @Test
-    fun moveUpForwardTwoSteps(){
-        val instruction = ForwardMovement();
-        val expectedStatus = Status(Position(0, 2), Heading.NORTH)
+    @ParameterizedTest
+    @CsvSource(
+        "NORTH, 2, 4",
+        "EAST, 4, 2",
+        "SOUTH, 2, 0",
+        "WEST, 0, 2",
+    )
+    fun moveUpForwardTwoSteps(initialHeading: Heading, expectedPositionX: Int, expectedPositionY: Int){
+        robot = Robot(Status(Position(2, 2), initialHeading), factory)
+        val expectedStatus = Status(Position(expectedPositionX, expectedPositionY), initialHeading)
 
+        val instruction = ForwardMovement();
         robot.updateStatus(instruction)
         robot.updateStatus(instruction)
 
