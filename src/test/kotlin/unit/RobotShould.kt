@@ -20,7 +20,6 @@ class RobotShould {
     @Test
     fun beAssignedToOneFactory(){
         robot = Robot(Status(Position(0, 0), Heading.NORTH), factory)
-//        assertEquals(robot, factory.whatsIn(robot.status.position));
         assertFalse { factory.canIMoveTo(robot.status.position) }
         assertEquals(robot.factory, factory);
     }
