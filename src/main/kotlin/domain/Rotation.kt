@@ -1,6 +1,6 @@
 package domain
 
-data class Rotation(val rotateTo: Direction) : Instruction() {
+class Rotation(val rotateTo: Direction) : Instruction() {
     val rotateLeftMap: Map<Heading, Heading> = mapOf(
         Heading.NORTH to Heading.WEST,
         Heading.WEST to Heading.SOUTH,
@@ -19,6 +19,16 @@ data class Rotation(val rotateTo: Direction) : Instruction() {
             Direction.LEFT -> return Status(currentStatus.position, rotateLeftMap[currentStatus.heading]!!);
             Direction.RIGHT -> return Status(currentStatus.position, rotateRightMap[currentStatus.heading]!!);
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Rotation) return false
+        return rotateTo == other.rotateTo
+    }
+
+    override fun hashCode(): Int {
+        return rotateTo.hashCode()
     }
 }
 

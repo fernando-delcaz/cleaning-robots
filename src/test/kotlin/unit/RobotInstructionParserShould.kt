@@ -1,6 +1,7 @@
 package unit
 
 import domain.Direction
+import domain.ForwardMovement
 import domain.Instruction
 import domain.Rotation
 import domain.exceptions.InvalidStatusException
@@ -35,6 +36,22 @@ class RobotInstructionParserShould {
 
         assertFailsWith<InvalidStatusException>{robotInstructionParser.parse(instructions)};
     }
+
+    @Test
+    fun processOneMixOfRotationsAndMovements() {
+        val instructions = "RLMLMR";
+        val robotInstructionParser = RobotInstructionParser();
+
+        val expectedResult = listOf(
+            Rotation(Direction.RIGHT),
+            Rotation(Direction.LEFT),
+            ForwardMovement(),
+            Rotation(Direction.LEFT),
+            ForwardMovement(),
+            Rotation(Direction.RIGHT),
+        )
+        assertEquals(expectedResult, robotInstructionParser.parse(instructions))
+    }
 }
 
 class RobotInstructionParser {
@@ -43,6 +60,7 @@ class RobotInstructionParser {
             when (it) {
                 'L' -> Rotation(Direction.LEFT)
                 'R' -> Rotation(Direction.RIGHT)
+                'M' -> ForwardMovement()
                 else -> throw InvalidStatusException("Invalid instruction")
             }
         }
