@@ -57,4 +57,17 @@ class ApplicationShould {
         val expectedOutput = listOf("0 1 N", "0 0 N")
         assertEquals(expectedOutput, application.executeCleanUp(input))
     }
+
+    @Test
+    fun handleRobotsHittingTheWall() {
+        val input = """5 5
+                   0 0 S
+                   M
+                   4 4 N
+                   M"""
+        val application = Application()
+
+        val expectedOutput = listOf("0 0 S", "4 4 N")
+        assertEquals(expectedOutput, application.executeCleanUp(input))
+    }
 }
