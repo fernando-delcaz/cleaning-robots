@@ -5,7 +5,8 @@ data class Robot(var status: Status, var factory: Factory) {
         factory.place(this)
     }
 
-    fun updateStatus(instruction: Instruction){
-        status = instruction.execute(status)
+    fun updateStatus(instruction: Instruction) {
+        val newStatus = instruction.execute(status)
+        status = factory.updateRobotStatus(this, newStatus);
     }
 }
