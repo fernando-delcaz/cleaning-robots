@@ -32,6 +32,14 @@ class FactoryInputParserShould {
             factoryInputParser.parse(input)
         }
     }
+
+    @Test
+    fun throwExceptionForNegativeValues() {
+        val input = "-5 5"
+        assertFailsWith<InvalidInputException> {
+            factoryInputParser.parse(input)
+        }
+    }
 }
 
 class FactoryInputParser {
@@ -44,6 +52,10 @@ class FactoryInputParser {
         val columns = parts[1].toIntOrNull()
         if (rows == null || columns == null) {
             throw InvalidInputException("Values must be numbers")
+        }
+
+        if (rows<=0 || columns <=0) {
+            throw InvalidInputException("Factory should have at least 1 row and 1 column")
         }
 
         return FactorySizeDto(rows, columns)
