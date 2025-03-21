@@ -83,13 +83,13 @@ class ApplicationShould {
     @Test
     fun handleRobotsHittingTheWall() {
         val input = """5 5
-                   0 0 S
+                   1 1 S
                    M
-                   4 4 N
+                   5 5 N
                    M"""
         val application = Application()
 
-        val expectedOutput = listOf(RobotOutputStatusDto("0 0 S"), RobotOutputStatusDto("4 4 N"))
+        val expectedOutput = listOf(RobotOutputStatusDto("1 1 S"), RobotOutputStatusDto("5 5 N"))
         assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 }
