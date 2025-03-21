@@ -1,7 +1,7 @@
 package infrastructure
 
 import application.Application
-import java.util.Scanner
+import java.util.*
 
 class CommandLineInterface {
 
@@ -13,9 +13,8 @@ class CommandLineInterface {
         println("Introduce las instrucciones del robot (como texto): ")
 
         val input = buildString {
-            var line: String?
-            while (true) {
-                line = scanner.nextLine()
+            while (scanner.hasNextLine()) {
+                val line = scanner.nextLine()
                 if (line.isNullOrBlank()) {
                     break
                 }
@@ -23,11 +22,16 @@ class CommandLineInterface {
             }
         }
 
-        val result = application.executeCleanUp(input)
 
-        println("Resultados del movimiento del robot:")
-        result.forEach { println(it) }
+        try {
+            val result = application.executeCleanUp(input)
 
-        scanner.close()
+            println("Resultados del movimiento del robot:")
+            result.forEach {println(it.toString()) }
+        } catch (e: Exception) {
+            println("Ocurrió un error al procesar las instrucciones del robot: ${e.message}")
+        } finally {
+            scanner.close()
+        }
     }
 }

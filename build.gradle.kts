@@ -34,3 +34,13 @@ tasks.withType<KotlinCompile>() {
 application {
     mainClass.set("MainKt")
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "MainKt"
+    }
+}
+
+tasks.getByName("run", JavaExec::class) {
+    standardInput = System.`in`
+}
