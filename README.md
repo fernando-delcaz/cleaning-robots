@@ -1,68 +1,162 @@
 # cleaning-robots
-Volkswagen digital:hub technical test
 
-Fernando del Caz
+## Volkswagen digital:hub technical test
 
-Summary of technical decisions
+**Fernando del Caz**
 
-1.- Using TDD.
+---
 
-The exercise tells you to use any kind of testing approach to ensure that the code works flawlessly so not adding any kind of tests is not an option.
-There are mainly 2 approaches that I have considered.
-- Test last
-- Test first
-To me, using a TDD approach is the best option as it usually leads to a more concise and robust code. I will use well known techniques like fake it until you make it and baby steps.
-There are also caveats when using this approach as not leading to a good design by itself so I will also keep in mind the advices shown like using hexagonal architecture and some DDD concepts
+## Summary of Technical Decisions
 
-    Some of the tests I will need to create are the following ones:
-        * Place a robot outside the grid
-        * Place a robot within the grid
-        * Rotate the robot up/down, left/right      
-        * Send the robot just one position up/down, left/right  
-        * Ensure that the robot is not going out of boundaries (vertically and horizontally)
-        * Send the robot several tiles away from its initial position
-        * Same movements with more than one robot
-        * Represent that a robot cannot move over another one
+### 1. Using TDD
 
-2.- Using domain exceptions
+The exercise requires a testing approach to ensure flawless code execution. There are two main approaches:
 
-To model unexpected or wrong system behaviours my thought process is as following:
-      I will return controlled results in case that something wrong, that I can expect happens
-      I will just throw an exception in case that something wrong, that it should not normally happen, occurs
-            In this case, I think that it´s better to use custom domain exceptions rather than the ones provided by the language because those are part of our domain and they can provide more accurate and better information
+- **Test last**
+- **Test first**
 
-3.- Object Calisthenics or avoiding primitive obssesion
+Using **TDD** is the best option as it generally leads to more concise and robust code. I will use techniques like _"fake it until you make it"_ and _baby steps_. However, TDD alone does not guarantee a good design, so I will also apply principles like **hexagonal architecture** and **DDD concepts**.
 
-For some domain entities such as the position or the heading I could use primitives instead of domain objects. The code would still work properly and maybe going for this abstractions could be seen as a premature abstraction. I decide to go this way because they better represent the domain of the context and I can get better control such as avoiding data clumps as e.g. using the coordinates components on isolatino 
+#### Tests to be implemented:
+- Place a robot outside the grid
+- Place a robot within the grid
+- Rotate the robot (left/right, up/down)
+- Move the robot one position (left/right, up/down)
+- Ensure robots do not go out of boundaries
+- Move the robot multiple tiles
+- Handle multiple robots
+- Prevent robots from moving over each other
 
-4.- Modelling the factory floor using arrays vs lists
+### 2. Using Domain Exceptions
 
-I have taken the decision of using arrays as the floor size does not change and that way I don´t need to control some of the scenarios myself.
+To handle unexpected behaviors:
 
-Using lists, in contrast, would be a bit less efficient and I would need to handle out of boundaries assignments myself. This way I may also lose some powerful, out of the box operations, which is a tradeoff that I accept for this exercise
+- Controlled results will be returned for expected errors.
+- Exceptions will be thrown for unexpected errors.
+- Custom domain exceptions will be used instead of language-built ones to provide better domain-specific feedback.
 
-5.- Using enums for the robot instructions to avoid propagating wrong inputs deep in the code
+### 3. Avoiding Primitive Obsession (Object Calisthenics)
 
-The application contract is using strings. This means that a variety of inputs should be controlled in order to avoid errors. I could make the robot handle this errors but I think it´s better to narrow this behaviour and postpone the decision of choosing a better system component to do this
+Instead of using primitives for domain entities like **position** or **heading**, I will create domain objects. This enhances readability, reduces data clumps, and ensures better domain representation.
 
-6.- Ubiquitous language
+### 4. Modeling the Factory Floor: Arrays vs. Lists
 
-In order to ensure that anybody involved the project, including potential expert domains, understand the same concept for the same word I think it´s important to clarify some core concepts of our domain
+Using **arrays** is more efficient since the factory floor size is fixed, eliminating the need for boundary checks. Lists, while more flexible, require additional boundary management, which I prefer to avoid.
 
-Robot - Any of the cleaner robots
-Factory - Is the center we want to clean
-Factory Floor - It´s the area to clean, represented by a matrix
-Position - Coordinates over the floor factory which. A robot may be in a position or it can be emtpy
-Heading - Is where the robot is pointing to. It can be North, West, South or East
-Status - Is the report representing where a robot is within the factory and where is it pointing to
-Instructions - Is the set of possible movements that the robot need to follow. The can be rotation (L, R) or front movements
+### 5. Using Enums for Robot Instructions
 
-7.- Implementing event sourcing
-I want to split the responsibilities between the factory floor (just to handle it a robot is moving within boundaries) and the robots (to handle collisions). I will use event sourcing for this creating a domain event named "RobotMovedEvent"
+Since the application contract relies on strings, I will map instructions to **enums** to prevent invalid inputs from propagating through the code.
 
-8.- Continue with the operation when hitting a wall or another robot
-I will just consider that a robot hits a wall or another robot during a movement but this does not stop it to try to continue as it can potentially clean a bigger area than if I make it halt or throw an exception and stop the whole program
+### 6. Ubiquitous Language
 
-9.- Use hexagonal architecture + onion
-I have decided to use hexagonal architecture mainly because it´s approach to ports and adapters will make it easy to add different entry points to the application in the case I want to convert it to an api, use files as the input... etc.
-I also want to combine it with onion as the layered approach provides better decoupling and easier testability amongst other benefits
+To maintain a shared understanding among all stakeholders, key domain terms are defined:
+
+- **Robot** - A cleaning unit.
+- **Factory** - The facility being cleaned.
+- **Factory Floor** - The grid representation of the cleaning area.
+- **Position** - Coordinates on the floor grid.
+- **Heading** - The robot's direction (North, South, East, West).
+- **Status** - A report on a robot’s position and heading.
+- **Instructions** - Movement commands (L, R, F).
+
+### 7. Implementing Event Sourcing
+
+To separate concerns between:
+
+- **Factory Floor**: Manages grid boundaries.
+- **Robots**: Handle collisions.
+
+A `RobotMovedEvent` domain event will be used.
+
+### 8. Collision Handling: Continue Execution
+
+A robot encountering a wall or another robot will **not halt execution**. Instead, it will attempt to continue moving, maximizing cleaning coverage.
+
+### 9. Hexagonal + Onion Architecture
+
+Using **Hexagonal Architecture** simplifies adapting the application to different entry points (e.g., API, file input). **Onion Architecture** ensures better decoupling and testability.
+
+---
+
+## Setup and Execution Instructions
+
+### 1. Install Java JDK 15
+
+#### **Windows**
+1. Download JDK 15: [Oracle JDK 15](https://www.oracle.com/java/technologies/javase/jdk15-archive-downloads.html)
+2. Install following the wizard.
+3. Configure `JAVA_HOME`:
+      - Open **System Properties** (`Win + R`, type `sysdm.cpl`, press Enter).
+      - Navigate to **Advanced > Environment Variables**.
+      - Under **System Variables**, click **New**:
+            - **Variable name**: `JAVA_HOME`
+            - **Variable value**: `C:\Program Files\Java\jdk-15` (or actual path).
+      - Edit **Path** variable:
+            - Click **New** and add `%JAVA_HOME%\bin`.
+      - Save changes.
+4. Verify installation:
+   ```sh
+   java -version
+   ```
+   
+    Expected outuput
+    ```
+    java version "15.0.2" 2021-01-19
+    Java(TM) SE Runtime Environment (build 15.0.2+7-27)
+    Java HotSpot(TM) 64-Bit Server VM (build 15.0.2+7-27, mixed mode)
+   ```
+#### **Linux/macOS**
+1. Install OpenJDK 15:
+   ```sh
+   sudo apt install openjdk-15-jdk  # Debian/Ubuntu
+   brew install openjdk@15          # macOS (Homebrew)
+   ```
+2. Verify installation:
+   ```sh
+   java -version
+   ```
+
+### 2. Install Kotlin and Gradle
+
+1. Install Kotlin:
+   ```sh
+   sdk install kotlin
+   ```
+   or manually from [Kotlin](https://kotlinlang.org/)
+
+2. Install Gradle:
+   ```sh
+   sdk install gradle
+   ```
+   or manually from [Gradle](https://gradle.org/install/)
+
+3. Verify installation:
+   ```sh
+   kotlin -version
+   gradle -version
+   ```
+
+### 3. Clone the Repository
+```sh
+git clone https://github.com/your-username/cleaning-robots.git
+cd cleaning-robots
+```
+
+### 4. Build and Run the Application
+```sh
+gradlew build
+gradlew run
+```
+
+### 5. Run Tests
+```sh
+gradlew test
+```
+
+### 6. Linting and Code Style
+```sh
+gradle ktlintCheck
+```
+
+---
+
