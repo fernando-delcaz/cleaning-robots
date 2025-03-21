@@ -1,3 +1,6 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import infrastructure.CommandLineInterface
+
+fun main() {
+    val cli = CommandLineInterface()
+    cli.start()
 }
