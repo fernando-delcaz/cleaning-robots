@@ -58,7 +58,7 @@ To handle unexpected behaviors:
 - Exceptions will be thrown for unexpected errors.
 - Custom domain exceptions will be used instead of language-built ones to provide better domain-specific feedback.
 
-### 3. Avoiding Primitive Obsession (Object Calisthenics)
+### 3. Avoiding Primitive Obsession [(Object Calisthenics)](https://keyvanakbary.com/object-calisthenics-mejora-tu-diseno-orientado-a-objetos/)
 
 Instead of using primitives for domain entities like **position** or **heading**, I will create domain objects. This enhances readability, reduces data clumps, and ensures better domain representation.
 
@@ -66,7 +66,7 @@ Instead of using primitives for domain entities like **position** or **heading**
 
 Using **arrays** is more efficient since the factory floor size is fixed, eliminating the need for boundary checks. Lists, while more flexible, require additional boundary management, which I prefer to avoid.
 
-This finally was discarded for simplicity. Please check the class factory floor and decision 10 
+This finally was discarded for simplicity. Please check the class factory floor and   [DDD Elements](#10-ddd-elements).
 
 ### 5. Using Enums for Robot Instructions
 
