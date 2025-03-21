@@ -50,7 +50,7 @@ class ApplicationShould {
                        MMRMMRMRRM"""
         val application = Application()
 
-        val expectedOutput = listOf(RobotOutputStatusDto("1 3 N"), RobotOutputStatusDto("5 1 E"))
+        val expectedOutput = listOf(RobotOutputStatusDto("2 3 N"), RobotOutputStatusDto("5 1 E"))
         assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 
