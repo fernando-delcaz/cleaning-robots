@@ -6,13 +6,13 @@ import infrastructure.Dto.StatusDto
 
 class ApplicationInputParser {
 
-    val factoryInputParser = FactoryInputParser();
-    val robotStatusParser = RobotStatusParser();
-    val robotInstructionParser = RobotInstructionParser();
+    val factoryInputParser = FactoryInputParser()
+    val robotStatusParser = RobotStatusParser()
+    val robotInstructionParser = RobotInstructionParser()
 
     fun parse(input: String): ApplicationInputDto {
-        val inputLines = input.trim().lines();
-        val factorySizeDto = factoryInputParser.parse(inputLines[0]);
+        val inputLines = input.trim().lines()
+        val factorySizeDto = factoryInputParser.parse(inputLines[0])
 
         val robots = mutableListOf<Pair<StatusDto, List<InstructionDto>>>()
         for (i in 1 until inputLines.size step 2) {

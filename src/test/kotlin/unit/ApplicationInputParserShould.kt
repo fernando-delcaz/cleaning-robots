@@ -16,7 +16,7 @@ class ApplicationInputParserShould {
                        LMLMLMLMM"""
 
         val factorySizeDto = FactorySizeDto(5, 5)
-        val robotInitialStatusDto = StatusDto(1, 2, 'N');
+        val robotInitialStatusDto = StatusDto(1, 2, 'N')
         val robotInputInstructionsDto = listOf(
             InstructionDto('L'),
             InstructionDto('M'),
@@ -41,8 +41,8 @@ class ApplicationInputParserShould {
 
     @Test
     fun parseTheApplicationInputForTwoRobots() {
-        val factorySizeDto = FactorySizeDto(5, 5);
-        val robotOneInitialStatusDto = StatusDto(1, 2, 'N');
+        val factorySizeDto = FactorySizeDto(5, 5)
+        val robotOneInitialStatusDto = StatusDto(1, 2, 'N')
         val robotOneInputInstructionsDto = listOf(
             InstructionDto('L'),
             InstructionDto('M'),
@@ -55,7 +55,7 @@ class ApplicationInputParserShould {
             InstructionDto('M')
         )
 
-        val robotTwoInitialStatusDto = StatusDto(3, 3, 'E');
+        val robotTwoInitialStatusDto = StatusDto(3, 3, 'E')
         val robotTwoInputInstructionsDto = listOf(
             InstructionDto('M'),
             InstructionDto('M'),
@@ -76,14 +76,14 @@ class ApplicationInputParserShould {
                 Pair(robotTwoInitialStatusDto, robotTwoInputInstructionsDto)
             )
         )
-        val applicationInputParser = ApplicationInputParser();
+        val applicationInputParser = ApplicationInputParser()
         val input = """5 5
                        1 2 N
                        LMLMLMLMM
                        3 3 E
                        MMRMMRMRRM"""
 
-        assertEquals(expectedOutput, applicationInputParser.parse(input));
+        assertEquals(expectedOutput, applicationInputParser.parse(input))
     }
 }
 

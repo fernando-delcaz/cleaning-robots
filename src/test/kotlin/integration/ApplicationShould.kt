@@ -1,6 +1,7 @@
 package integration
 
 import application.Application
+import infrastructure.Dto.RobotOutputStatusDto
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -13,8 +14,8 @@ class ApplicationShould {
                        LMLMLMLMM"""
         val application = Application()
 
-        val expectedOutput = """1 3 N"""
-        assertEquals(expectedOutput, application.executeCleanUp(input).first())
+        val expectedOutput: List<RobotOutputStatusDto> = listOf(RobotOutputStatusDto("""1 3 N"""))
+        assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 
     @Test
@@ -25,8 +26,8 @@ class ApplicationShould {
                        """
         val application = Application()
 
-        val expectedOutput = """1 2 W"""
-        assertEquals(expectedOutput, application.executeCleanUp(input).first())
+        val expectedOutput = listOf(RobotOutputStatusDto("""1 2 W"""))
+        assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 
     @Test
@@ -38,8 +39,8 @@ class ApplicationShould {
                        MMRMMRMRRM"""
         val application = Application()
 
-        val expectedOutput = listOf("1 3 N", "4 1 E")
-        assertEquals(expectedOutput, application.executeCleanUp(input))
+        val expectedOutput = listOf(RobotOutputStatusDto("1 3 N"), RobotOutputStatusDto("4 1 E"))
+        assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 
     @Test
@@ -51,8 +52,8 @@ class ApplicationShould {
                    M"""
         val application = Application()
 
-        val expectedOutput = listOf("0 1 N", "0 0 N")
-        assertEquals(expectedOutput, application.executeCleanUp(input))
+        val expectedOutput = listOf(RobotOutputStatusDto("0 1 N"), RobotOutputStatusDto("0 0 N"))
+        assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 
     @Test
@@ -64,7 +65,7 @@ class ApplicationShould {
                    M"""
         val application = Application()
 
-        val expectedOutput = listOf("0 0 S", "0 0 N")
-        assertEquals(expectedOutput, application.executeCleanUp(input))
+        val expectedOutput = listOf(RobotOutputStatusDto("0 0 S"), RobotOutputStatusDto("4 4 N"))
+        assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 }

@@ -12,14 +12,14 @@ class FactoryCleaningService(
     private var factory: Factory = Factory(applicationInputDto.factorySizeDto.rows, applicationInputDto.factorySizeDto.columns)
     fun makeCleanUp(): List<RobotOutputStatusDto> {
 
-        val output = ArrayList<RobotOutputStatusDto>();
+        val output = ArrayList<RobotOutputStatusDto>()
         for(robotDto in applicationInputDto.robots){
 
             val position = Position(robotDto.first.x, robotDto.first.y)
             val heading = Heading.fromChar(robotDto.first.heading)
 
-            val status = Status(position, heading);
-            val robot = Robot(status, factory);
+            val status = Status(position, heading)
+            val robot = Robot(status, factory)
 
             for(instructionDto in robotDto.second){
                 val instruction: Instruction = when (instructionDto.instruction) {
@@ -29,11 +29,11 @@ class FactoryCleaningService(
                     else -> throw InvalidInputException("Invalid instruction: $instructionDto.instruction")
                 }
 
-                robot.execute(instruction);
+                robot.execute(instruction)
             }
             output.add(RobotOutputStatusDto(robot.status.toString()))
         }
 
-        return output;
+        return output
     }
 }

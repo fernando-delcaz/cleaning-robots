@@ -7,7 +7,7 @@ import java.util.*
 
 class RobotStatusParser {
     fun parse(initialStatus: String): StatusDto {
-        val statusParts = initialStatus.split(" ");
+        val statusParts = initialStatus.split(" ")
         if (statusParts.size != 3) {
             throw InvalidStatusException("Invalid status format")
         }
@@ -25,6 +25,6 @@ class RobotStatusParser {
             throw InvalidStatusException("Invalid heading")
         }
 
-        return StatusDto(x,y, statusParts[2].first().uppercaseChar());
+        return StatusDto(x,y, statusParts[2].first().uppercaseChar())
     }
 }
