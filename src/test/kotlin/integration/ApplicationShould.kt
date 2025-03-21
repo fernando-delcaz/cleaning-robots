@@ -1,9 +1,11 @@
 package integration
 
 import application.Application
+import domain.exceptions.OutsideOfTheFactoryBoundariesException
 import infrastructure.Dto.RobotOutputStatusDto
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class ApplicationShould {
 
@@ -55,11 +57,22 @@ class ApplicationShould {
     }
 
     @Test
-    fun handleTwoRobotsWithCollisionInFirstMove() {
+    fun raiseAnExceptionWhenTheInputIsInvalid() {
         val input = """5 5
                    0 0 N
                    M
                    0 0 N
+                   M"""
+        val application = Application()
+        assertFailsWith<OutsideOfTheFactoryBoundariesException> { application.executeCleanUp(input) }
+    }
+
+    @Test
+    fun handleTwoRobotsWithCollisionInFirstMove() {
+        val input = """5 5
+                   1 1 N
+                   M
+                   1 1 N
                    M"""
         val application = Application()
 
