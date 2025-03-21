@@ -6,13 +6,13 @@ import infrastructure.Dto.RobotOutputStatusDto
 class Application {
     fun executeCleanUp(input: String): List<RobotOutputStatusDto> {
 
-        val inputParser = ApplicationInputParser();
-        val applicationInputDto = inputParser.parse(input);
+        val inputParser = ApplicationInputParser()
+        val applicationInputDto = inputParser.parse(input)
 
-        val cleaningService = FactoryCleaningService(applicationInputDto);
+        val cleaningService = FactoryCleaningService(applicationInputDto)
         val result = cleaningService.makeCleanUp()
 
-        return result;
+        return result
     }
 
 }
