@@ -1,5 +1,6 @@
 package infrastructure
 import domain.exceptions.InvalidStatusException
+import infrastructure.Dto.InstructionDto
 
 private val validInstructions: Set<Char> = setOf('L', 'R', 'M')
 class RobotInstructionParser {

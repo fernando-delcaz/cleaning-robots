@@ -1,7 +1,10 @@
 package unit
 
-import domain.*
 import infrastructure.*
+import infrastructure.Dto.ApplicationInputDto
+import infrastructure.Dto.FactorySizeDto
+import infrastructure.Dto.InstructionDto
+import infrastructure.Dto.StatusDto
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 

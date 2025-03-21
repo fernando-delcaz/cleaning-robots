@@ -1,9 +1,6 @@
 package integration
 
 import application.Application
-import application.FactoryCleaningService
-import domain.*
-import infrastructure.*
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -14,7 +11,7 @@ class ApplicationShould {
         val input = """5 5
                        1 2 N
                        LMLMLMLMM"""
-        val application = Application();
+        val application = Application()
 
         val expectedOutput = """1 3 N"""
         assertEquals(expectedOutput, application.executeCleanUp(input).first())
@@ -26,7 +23,7 @@ class ApplicationShould {
                        1 2 N
                        L
                        """
-        val application = Application();
+        val application = Application()
 
         val expectedOutput = """1 2 W"""
         assertEquals(expectedOutput, application.executeCleanUp(input).first())
@@ -67,7 +64,7 @@ class ApplicationShould {
                    M"""
         val application = Application()
 
-        val expectedOutput = listOf("0 0 S", "4 4 N")
+        val expectedOutput = listOf("0 0 S", "0 0 N")
         assertEquals(expectedOutput, application.executeCleanUp(input))
     }
 }

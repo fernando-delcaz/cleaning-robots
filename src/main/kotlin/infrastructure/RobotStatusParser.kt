@@ -2,8 +2,7 @@ package infrastructure
 
 import domain.Heading
 import domain.exceptions.InvalidStatusException
-import domain.Position
-import domain.Status
+import infrastructure.Dto.StatusDto
 import java.util.*
 
 class RobotStatusParser {

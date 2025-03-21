@@ -2,16 +2,17 @@ package application
 
 import domain.*
 import domain.exceptions.InvalidInputException
-import infrastructure.*
+import infrastructure.Dto.ApplicationInputDto
+import infrastructure.Dto.RobotOutputStatusDto
 
 class FactoryCleaningService(
     private val applicationInputDto: ApplicationInputDto,
 ) {
 
     private var factory: Factory = Factory(applicationInputDto.factorySizeDto.rows, applicationInputDto.factorySizeDto.columns)
-    fun makeCleanUp(): List<String> {
+    fun makeCleanUp(): List<RobotOutputStatusDto> {
 
-        val output = ArrayList<String>();
+        val output = ArrayList<RobotOutputStatusDto>();
         for(robotDto in applicationInputDto.robots){
 
             val position = Position(robotDto.first.x, robotDto.first.y)
@@ -30,8 +31,7 @@ class FactoryCleaningService(
 
                 robot.execute(instruction);
             }
-            output.add(robot.status.toString())
-
+            output.add(RobotOutputStatusDto(robot.status.toString()))
         }
 
         return output;

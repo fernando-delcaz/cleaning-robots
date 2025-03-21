@@ -1,6 +1,7 @@
 package infrastructure
 
 import domain.exceptions.InvalidInputException
+import infrastructure.Dto.FactorySizeDto
 
 class FactoryInputParser {
     fun parse(input: String): FactorySizeDto {

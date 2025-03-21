@@ -1,7 +1,8 @@
 package infrastructure
 
-import domain.Instruction
-import domain.Status
+import infrastructure.Dto.ApplicationInputDto
+import infrastructure.Dto.InstructionDto
+import infrastructure.Dto.StatusDto
 
 class ApplicationInputParser {
 
