@@ -7,10 +7,6 @@ class Factory(rows: Int, columns: Int) {
 
     var factoryFloor = FactoryFloor(rows, columns)
 
-    fun canIMoveTo(position: Position): Boolean {
-        return !factoryFloor.isTileOccupied(position)
-    }
-
     internal fun moveRobot(robot: Robot, desiredStatus: Status): Status {
         val initialRobotStatus = robot.status
 
@@ -36,6 +32,14 @@ class Factory(rows: Int, columns: Int) {
         robot.status = initialRobotStatus
         factoryFloor.updateTileContent(robot)
         return initialRobotStatus
+    }
+
+    fun canIMoveTo(position: Position): Boolean {
+        return factoryFloor.canSomethingBeMovedTo(position)
+    }
+
+    fun isInsideTheFactory(position: Position): Boolean {
+        return factoryFloor.isOutOfBoundaries(position).not()
     }
 
 }

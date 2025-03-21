@@ -25,7 +25,7 @@ class FactoryCleaningService(
                 val instruction: Instruction = when (instructionDto.instruction) {
                     'L' -> Rotation(Direction.LEFT)
                     'R' -> Rotation(Direction.RIGHT)
-                    'M' -> ForwardMovement()
+                    'M' -> ForwardMovement(factory)
                     else -> throw InvalidInputException("Invalid instruction: $instructionDto.instruction")
                 }
 

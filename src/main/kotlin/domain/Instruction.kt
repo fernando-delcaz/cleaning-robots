@@ -1,5 +1,5 @@
 package domain
 
 sealed class Instruction {
-    abstract fun execute(currentStatus: Status): Status
+    abstract fun execute(robot: Robot): Status
 }

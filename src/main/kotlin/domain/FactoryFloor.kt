@@ -20,19 +20,19 @@ class FactoryFloor(private val rows: Int, private val columns: Int) {
     }
 
     fun isTileOccupied(position: Position): Boolean {
-        if (isOutOfBoundaries(position)) {
-            throw OutsideOfTheFactoryBoundariesException("You can’t query a position outside the factory grid boundaries")
-        }
-
         return occupiedPositions.containsKey(position)
     }
 
-    private fun isOutOfBoundaries(position: Position): Boolean {
-        return position.x < 1 || position.x >= columns + 1 || position.y < 1 || position.y >= rows + 1 //Check the test example at the end of the exercise spec
+    fun isOutOfBoundaries(position: Position): Boolean {
+        return position.x < 1 || position.x >= columns + 1 || position.y < 1 || position.y >= rows + 1
     }
 
     fun updateTileContent(robot: Robot) {
         try {
+            if (isOutOfBoundaries(robot.status.position)) {
+                return
+            }
+
             if (isTileOccupied(robot.status.position)) {
                 throw TileAlreadyOccupiedException("A robot cannot land over another!")
             }
@@ -40,5 +40,10 @@ class FactoryFloor(private val rows: Int, private val columns: Int) {
         } catch (exception: ArrayIndexOutOfBoundsException) {
             throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
         }
+    }
+
+
+    fun canSomethingBeMovedTo(position: Position): Boolean {
+        return !isTileOccupied(position) && !isOutOfBoundaries(position);
     }
 }

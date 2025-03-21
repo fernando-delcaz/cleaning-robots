@@ -10,6 +10,17 @@ import kotlin.test.assertFailsWith
 class ApplicationShould {
 
     @Test
+    fun handleOneRobotToCleanOneFactoryJustMovingOnce() {
+        val input = """5 5
+                       1 2 N
+                       M"""
+        val application = Application()
+
+        val expectedOutput: List<RobotOutputStatusDto> = listOf(RobotOutputStatusDto("""1 3 N"""))
+        assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
+    }
+
+    @Test
     fun handleOneRobotToCleanOneFactory() {
         val input = """5 5
                        1 2 N
@@ -77,6 +88,17 @@ class ApplicationShould {
         val application = Application()
 
         val expectedOutput = listOf(RobotOutputStatusDto("1 2 N"), RobotOutputStatusDto("1 1 N"))
+        assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
+    }
+
+    @Test
+    fun handleOneRobotHittingTheWall() {
+        val input = """5 5
+                   1 1 S
+                   M"""
+        val application = Application()
+
+        val expectedOutput = listOf(RobotOutputStatusDto("1 1 S"))
         assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 

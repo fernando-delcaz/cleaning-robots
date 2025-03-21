@@ -14,7 +14,8 @@ class Rotation(val rotateTo: Direction) : Instruction() {
         Heading.SOUTH to Heading.WEST,
         Heading.WEST to Heading.NORTH
     )
-    override fun execute(currentStatus: Status): Status {
+    override fun execute(robot: Robot): Status {
+        val currentStatus = robot.status;
         when(rotateTo){
             Direction.LEFT -> return Status(currentStatus.position, rotateLeftMap[currentStatus.heading]!!);
             Direction.RIGHT -> return Status(currentStatus.position, rotateRightMap[currentStatus.heading]!!);
