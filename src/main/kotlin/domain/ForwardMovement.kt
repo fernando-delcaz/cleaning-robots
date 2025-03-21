@@ -4,7 +4,7 @@ class ForwardMovement(val factory: Factory) : Instruction() {
     override fun execute(robot: Robot): Status {
 
         var currentStatus = robot.status;
-        var nextStatus: Status = Status(currentStatus.position, currentStatus.heading);
+        var nextStatus = Status(currentStatus.position, currentStatus.heading);
         when (currentStatus.heading) {
             Heading.NORTH -> nextStatus =
                 Status(Position(currentStatus.position.x, currentStatus.position.y + 1), currentStatus.heading);

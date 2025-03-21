@@ -15,14 +15,6 @@ class FactoryFloor(private val rows: Int, private val columns: Int) {
         occupiedPositions.remove(robot.status.position)
     }
 
-    fun occupyTile(robot: Robot) {
-        occupiedPositions[robot.status.position] = robot
-    }
-
-    fun isTileOccupied(position: Position): Boolean {
-        return occupiedPositions.containsKey(position)
-    }
-
     fun isOutOfBoundaries(position: Position): Boolean {
         return position.x < 1 || position.x >= columns + 1 || position.y < 1 || position.y >= rows + 1
     }
@@ -42,8 +34,15 @@ class FactoryFloor(private val rows: Int, private val columns: Int) {
         }
     }
 
-
     fun canSomethingBeMovedTo(position: Position): Boolean {
         return !isTileOccupied(position) && !isOutOfBoundaries(position);
+    }
+
+    private fun occupyTile(robot: Robot) {
+        occupiedPositions[robot.status.position] = robot
+    }
+
+    private fun isTileOccupied(position: Position): Boolean {
+        return occupiedPositions.containsKey(position)
     }
 }

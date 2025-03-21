@@ -20,8 +20,8 @@ Using **TDD** is the best option as it generally leads to more concise and robus
 #### Tests to be implemented:
 - Place a robot outside the grid
 - Place a robot within the grid
-- Rotate the robot (left/right, up/down)
-- Move the robot one position (left/right, up/down)
+- Rotate the robot (left/right)
+- Move the robot one position (pointing to all the posible directions)
 - Ensure robots do not go out of boundaries
 - Move the robot multiple tiles
 - Handle multiple robots
@@ -43,6 +43,8 @@ Instead of using primitives for domain entities like **position** or **heading**
 
 Using **arrays** is more efficient since the factory floor size is fixed, eliminating the need for boundary checks. Lists, while more flexible, require additional boundary management, which I prefer to avoid.
 
+This finally was discarded for simplicity. Please check the class factory floor and decision 10 
+
 ### 5. Using Enums for Robot Instructions
 
 Since the application contract relies on strings, I will map instructions to **enums** to prevent invalid inputs from propagating through the code.
@@ -59,14 +61,15 @@ To maintain a shared understanding among all stakeholders, key domain terms are 
 - **Status** - A report on a robot’s position and heading.
 - **Instructions** - Movement commands (L, R, F).
 
-### 7. Implementing Event Sourcing
+### 7. Not Implementing Domain Events
 
 To separate concerns between:
 
 - **Factory Floor**: Manages grid boundaries.
 - **Robots**: Handle collisions.
 
-A `RobotMovedEvent` domain event will be used.
+A `RobotMovedEvent` domain event could be used. This could be nice from the point of view of DDD but at this point in time I think it would add a lot of overengineering to the project.
+The approach I was considering was to mimic that the robots can "see" by registering them in the factory, at the beginning. After that, I would broadcast the event to all the subscribers anytime a robot ends its routine to make them all aware of where to robots are parked and enabling them to "see" them without the need of querying the factory
 
 ### 8. Collision Handling: Continue Execution
 
@@ -76,6 +79,10 @@ A robot encountering a wall or another robot will **not halt execution**. Instea
 
 Using **Hexagonal Architecture** simplifies adapting the application to different entry points (e.g., API, file input). **Onion Architecture** ensures better decoupling and testability.
 
+### 10. Not Implementing Repositories
+
+At this stage, the Factory Floor contains a map with all the robot positions in order to know where they are and prepare for collisions. This is basically what represents my persistance layer and the status of the application. A good idea would be to isolate this into a repository that would be injected by it´s interface to the components needing to know where other robots are. 
+Being this a would idea, at this point I think that I have go far enough and adding this layer would require a lot of changes that would make the code potentially less readable or make me rewrite quite a lot of components of the application. 
 ---
 
 ## Setup and Execution Instructions
@@ -108,7 +115,10 @@ Using **Hexagonal Architecture** simplifies adapting the application to differen
 #### **Linux/macOS**
 1. Install OpenJDK 15:
    ```sh
-   sudo apt install openjdk-15-jdk  # Debian/Ubuntu
+   sudo apt install openjdk-15-jdk  # Debian/Ubuntu   
+   ```
+
+   ```sh   
    brew install openjdk@15          # macOS (Homebrew)
    ```
 2. Verify installation:
@@ -152,11 +162,5 @@ gradlew run
 ```sh
 gradlew test
 ```
-
-### 6. Linting and Code Style
-```sh
-gradle ktlintCheck
-```
-
 ---
 
