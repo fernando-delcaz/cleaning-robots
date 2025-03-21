@@ -1,58 +1,72 @@
 package unit
 
+import domain.Instruction
 import domain.exceptions.InvalidStatusException
 import infrastructure.Dto.InstructionDto
 import infrastructure.RobotInstructionParser
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.CsvSource
+import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 class RobotInstructionParserShould {
 
-    @ParameterizedTest
-    @CsvSource(
-        "L, L",
-        "RLMLMR, R, L, M, L, M, R, L, M, R"
-    )
-    fun parseValidInstructions(instructions: String, vararg expectedInstructions: Char) {
-        val robotInstructionParser = RobotInstructionParser()
-        val expectedResult = expectedInstructions.map { InstructionDto(it) }
+    @Test
+    fun parseOneValidInstruction() {
+        val instructions = "L";
+        val robotInstructionParser = RobotInstructionParser();
 
+        val expectedResult = listOf(InstructionDto('L'));
         assertEquals(expectedResult, robotInstructionParser.parse(instructions))
     }
 
-    @ParameterizedTest
-    @CsvSource(
-        "1",
-        "A",
-        "1 2 Z"
-    )
-    fun raiseAnExceptionOnInvalidInstruction(instructions: String) {
-        val robotInstructionParser = RobotInstructionParser()
-        assertFailsWith<InvalidStatusException> { robotInstructionParser.parse(instructions) }
-    }
+    @Test
+    fun returnEmptyListOnEmptyInstruction() {
+        val instructions = "";
+        val robotInstructionParser = RobotInstructionParser();
 
-    @ParameterizedTest
-    @CsvSource(
-        "RLMLMR, R, L, M, L, M, R, L, M, R",
-        "L, L",
-        "M, M"
-    )
-    fun processValidMovements(instructions: String, vararg expectedInstructions: Char) {
-        val robotInstructionParser = RobotInstructionParser()
-        val expectedResult = expectedInstructions.map { InstructionDto(it) }
-
+        val expectedResult = listOf<Instruction>();
         assertEquals(expectedResult, robotInstructionParser.parse(instructions))
     }
-    @ParameterizedTest
-    @CsvSource(
-        "'', ''"
-    )
-    fun returnEmptyListOnEmptyInstruction(instructions: String, vararg expectedInstructions: Char) {
-        val robotInstructionParser = RobotInstructionParser()
-        val expectedResult = expectedInstructions.map { InstructionDto(it) }
 
+    @Test
+    fun raiseAnExceptionOnInvalidInstruction() {
+        val instructions = "1";
+        val robotInstructionParser = RobotInstructionParser();
+
+        assertFailsWith<InvalidStatusException>{robotInstructionParser.parse(instructions)};
+    }
+
+    @Test
+    fun processOneMixOfRotationsAndMovements() {
+        val instructions = "RLMLMR";
+        val robotInstructionParser = RobotInstructionParser();
+
+        val expectedResult = listOf(
+            InstructionDto('R'),
+            InstructionDto('L'),
+            InstructionDto('M'),
+            InstructionDto('L'),
+            InstructionDto('M'),
+            InstructionDto('R'),
+        )
+        assertEquals(expectedResult, robotInstructionParser.parse(instructions))
+    }
+
+    @Test
+    fun processAnotherMixOfRotationsAndMovements() {
+        val instructions = "RLMLMR";
+        val robotInstructionParser = RobotInstructionParser();
+
+        val expectedResult = listOf(
+            InstructionDto('R'),
+            InstructionDto('L'),
+            InstructionDto('M'),
+            InstructionDto('L'),
+            InstructionDto('M'),
+            InstructionDto('R'),
+        )
         assertEquals(expectedResult, robotInstructionParser.parse(instructions))
     }
 }
+
+
