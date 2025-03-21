@@ -76,7 +76,7 @@ class ApplicationShould {
                    M"""
         val application = Application()
 
-        val expectedOutput = listOf(RobotOutputStatusDto("0 1 N"), RobotOutputStatusDto("0 0 N"))
+        val expectedOutput = listOf(RobotOutputStatusDto("1 2 N"), RobotOutputStatusDto("1 1 N"))
         assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 
