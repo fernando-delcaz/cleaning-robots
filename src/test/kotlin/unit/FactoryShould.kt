@@ -37,7 +37,7 @@ class FactoryShould {
     fun beAbleToPlaceOneRobotOnTheFloorOrigin() {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
-        val position = Position(0, 0)
+        val position = Position(1, 1)
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
         val result = factory.moveRobot(myRobot, myRobot.status)
@@ -48,7 +48,7 @@ class FactoryShould {
     fun beAbleToPlaceOneRobotInAnEmptySlotInTheFloor() {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
-        val position = Position(0, 1)
+        val position = Position(1, 2)
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
         val result = factory.moveRobot(myRobot, myRobot.status)
@@ -60,14 +60,14 @@ class FactoryShould {
     fun updateOneRobotPosition() {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
-        val position = Position(0, 0)
+        val position = Position(1, 1)
 
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
         val instruction = ForwardMovement();
         myRobot.execute(instruction);
 
-        assertEquals(Status(Position(0, 1), Heading.NORTH), myRobot.status, "Robot is not place where it should be")
+        assertEquals(Status(Position(1, 2), Heading.NORTH), myRobot.status, "Robot is not place where it should be")
         assertTrue { factory.canIMoveTo(position) }
     }
 
@@ -75,7 +75,7 @@ class FactoryShould {
     fun notUpdateTheRobotPositionIfItsGoingOutOfBounds() {
 
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
-        val position = Position(0, 4)
+        val position = Position(1, 5)
 
         val myRobot = Robot(Status(position, Heading.NORTH), factory)
 
@@ -91,7 +91,7 @@ class FactoryShould {
     @Test
     fun notAllowOneRobotToLandOverAnother() {
         val factory = Factory(FACTORY_FLOOR_ROWS, FACTORY_FLOOR_COLUMNS)
-        val position = Position(0, 4)
+        val position = Position(1, 5)
 
         Robot(Status(position, Heading.NORTH), factory)
 
