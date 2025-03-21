@@ -6,6 +6,29 @@
 
 ---
 
+## Domain
+
+I have tried to void an anemic domain model by adding business rules to the domain objects. A simple example of this could be the forward movement that checks it the displacement is allowed or not. This way I try to enforce the correctness and consistency of the application.    
+
+- Robot 
+  - Any of the robots to clean the factory
+- Status
+  - Represents the position and heading of the robot
+- Position
+  - Coordinates of the robot
+- Instruction 
+  - It´s an abstraction of what a robot can do, moving forward or rotating
+- Heading
+  - Where the robot is pointing to
+- ForwardMovement
+  - Advance one position towards the heading direction
+- Factory
+  - It´s responsible of containing the business rules to move robots around
+- FactoryFloor
+  - Auxiliary class to encapsulate the business rules for the boundaries and holding the status of the application ç
+
+These concepts represent the ubiquitous language of the core domain. I have paid some special attention also to use some natural language, closer to the expert domains, for the oprations. E.g the method canSomethingBeMovedTo(position: Position) in the factory floor or isInsideTheFactory(position: Position) in the factoryclass
+
 ## Summary of Technical Decisions
 
 ### 1. Using TDD
@@ -71,6 +94,8 @@ To separate concerns between:
 A `RobotMovedEvent` domain event could be used. This could be nice from the point of view of DDD but at this point in time I think it would add a lot of overengineering to the project.
 The approach I was considering was to mimic that the robots can "see" by registering them in the factory, at the beginning. After that, I would broadcast the event to all the subscribers anytime a robot ends its routine to make them all aware of where to robots are parked and enabling them to "see" them without the need of querying the factory
 
+A more canonical approach should be to emit these events to a collaborative domain such as a metrics system which is completely out of scope
+
 ### 8. Collision Handling: Continue Execution
 
 A robot encountering a wall or another robot will **not halt execution**. Instead, it will attempt to continue moving, maximizing cleaning coverage.
@@ -78,8 +103,18 @@ A robot encountering a wall or another robot will **not halt execution**. Instea
 ### 9. Hexagonal + Onion Architecture
 
 Using **Hexagonal Architecture** simplifies adapting the application to different entry points (e.g., API, file input). **Onion Architecture** ensures better decoupling and testability.
+Hexagonal Architecture (Ports & Adapters) focuses on isolating the core business logic by using ports (interfaces) to interact with external systems (APIs, databases, UI). This makes it easy to swap adapters (CLI, REST, file input) without modifying the core.
+The CommandLineInterface is an example of an adapter. 
+Onion Architecture takes a more layered approach, enforcing strict dependencies from the outer layers (infrastructure) towards the core. The business logic is at the center, and everything else depends on it, ensuring maximum decoupling and testability.
 
-### 10. Not Implementing Repositories
+### 10. DDD Elements
+Bounded Context - There is a single domain which is the only bounded context we have
+Value Objects - The Robot is an example of a value object
+Aggregate - The Factory is similar to an aggregate, not 100% canonical
+Services - FactoryCleaningService is an example of a service
+Layered architecture - Explained in the previous decision
+
+### 11. Not Implementing Repositories
 
 At this stage, the Factory Floor contains a map with all the robot positions in order to know where they are and prepare for collisions. This is basically what represents my persistance layer and the status of the application. A good idea would be to isolate this into a repository that would be injected by it´s interface to the components needing to know where other robots are. 
 Being this a would idea, at this point I think that I have go far enough and adding this layer would require a lot of changes that would make the code potentially less readable or make me rewrite quite a lot of components of the application. 
