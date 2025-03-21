@@ -19,7 +19,7 @@ class RobotShould {
 
     @Test
     fun beAssignedToOneFactory(){
-        robot = Robot(Status(Position(0, 0), Heading.NORTH), factory)
+        robot = Robot(Status(Position(1, 1), Heading.NORTH), factory)
         assertFalse { factory.canIMoveTo(robot.status.position) }
         assertEquals(robot.factory, factory);
     }
@@ -37,9 +37,9 @@ class RobotShould {
     )
     fun rotateTest(initialHeading: Heading, rotationDirection: String, expectedHeading: Heading) {
         val instruction = Rotation(Direction.valueOf(rotationDirection))
-        val expectedStatus = Status(Position(0, 0), expectedHeading)
+        val expectedStatus = Status(Position(1, 1), expectedHeading)
 
-        robot = Robot(Status(Position(0, 0), initialHeading), factory)
+        robot = Robot(Status(Position(1, 1), initialHeading), factory)
         robot.execute(instruction)
 
         assertEquals(expectedStatus, robot.status)
@@ -66,8 +66,8 @@ class RobotShould {
     @CsvSource(
         "NORTH, 2, 4",
         "EAST, 4, 2",
-        "SOUTH, 2, 0",
-        "WEST, 0, 2",
+        "SOUTH, 2, 1",
+        "WEST, 1, 2",
     )
     fun moveUpForwardTwoSteps(initialHeading: Heading, expectedPositionX: Int, expectedPositionY: Int){
         robot = Robot(Status(Position(2, 2), initialHeading), factory)
