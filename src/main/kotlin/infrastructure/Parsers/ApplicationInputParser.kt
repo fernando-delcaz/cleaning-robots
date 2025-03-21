@@ -1,4 +1,4 @@
-package infrastructure
+package infrastructure.Parsers
 
 import infrastructure.Dto.ApplicationInputDto
 import infrastructure.Dto.InstructionDto

@@ -3,7 +3,7 @@ package unit
 import domain.Instruction
 import domain.exceptions.InvalidStatusException
 import infrastructure.Dto.InstructionDto
-import infrastructure.RobotInstructionParser
+import infrastructure.Parsers.RobotInstructionParser
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 import kotlin.test.assertFailsWith

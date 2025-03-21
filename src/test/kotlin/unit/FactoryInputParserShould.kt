@@ -1,7 +1,7 @@
 package unit
 
 import domain.exceptions.InvalidInputException
-import infrastructure.FactoryInputParser
+import infrastructure.Parsers.FactoryInputParser
 import infrastructure.Dto.FactorySizeDto
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test

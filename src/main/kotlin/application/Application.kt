@@ -1,6 +1,6 @@
 package application
 
-import infrastructure.ApplicationInputParser
+import infrastructure.Parsers.ApplicationInputParser
 import infrastructure.Dto.RobotOutputStatusDto
 
 class Application {

@@ -14,7 +14,18 @@ class ApplicationShould {
                        LMLMLMLMM"""
         val application = Application()
 
-        val expectedOutput: List<RobotOutputStatusDto> = listOf(RobotOutputStatusDto("""1 3 N"""))
+        val expectedOutput: List<RobotOutputStatusDto> = listOf(RobotOutputStatusDto("""2 3 N"""))
+        assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
+    }
+
+    @Test
+    fun handleAnotherRobotToCleanOneFactory() {
+        val input = """5 5
+                       3 3 E
+                       MMRMMRMRRM"""
+        val application = Application()
+
+        val expectedOutput: List<RobotOutputStatusDto> = listOf(RobotOutputStatusDto("""5 1 E"""))
         assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 
@@ -39,7 +50,7 @@ class ApplicationShould {
                        MMRMMRMRRM"""
         val application = Application()
 
-        val expectedOutput = listOf(RobotOutputStatusDto("1 3 N"), RobotOutputStatusDto("4 1 E"))
+        val expectedOutput = listOf(RobotOutputStatusDto("1 3 N"), RobotOutputStatusDto("5 1 E"))
         assertEquals<Any>(expectedOutput, application.executeCleanUp(input))
     }
 

@@ -28,7 +28,7 @@ class FactoryFloor(private val rows: Int, private val columns: Int) {
     }
 
     private fun isOutOfBoundaries(position: Position): Boolean {
-        return position.x < 0 || position.x >= columns || position.y < 0 || position.y >= rows
+        return position.x < 1 || position.x >= columns + 1 || position.y < 1 || position.y >= rows + 1 //Check the test example at the end of the exercise spec
     }
 
     fun updateTileContent(robot: Robot) {
@@ -40,6 +40,5 @@ class FactoryFloor(private val rows: Int, private val columns: Int) {
         } catch (exception: ArrayIndexOutOfBoundsException) {
             throw OutsideOfTheFactoryBoundariesException("Robot placed outside grid boundaries!")
         }
-
     }
 }

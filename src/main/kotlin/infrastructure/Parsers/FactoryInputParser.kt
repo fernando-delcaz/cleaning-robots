@@ -1,4 +1,4 @@
-package infrastructure
+package infrastructure.Parsers
 
 import domain.exceptions.InvalidInputException
 import infrastructure.Dto.FactorySizeDto

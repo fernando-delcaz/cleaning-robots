@@ -1,7 +1,7 @@
 package unit
 
 import domain.exceptions.InvalidStatusException
-import infrastructure.RobotStatusParser
+import infrastructure.Parsers.RobotStatusParser
 import infrastructure.Dto.StatusDto
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
